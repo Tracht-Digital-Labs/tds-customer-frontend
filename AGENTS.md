@@ -27,6 +27,7 @@ npm start                       # run release/app.cjs locally
 - No page cache, ever. `vite.ssr.noExternal` covers `@tracht-digital-solutions/`.
 - `public/.htaccess` never gets `Options +FollowSymLinks`; `tsconfig.json` keeps `release/` excluded.
 - Production deploys only via the manual `release.yml` button.
+- Follows the TDS quality standard (`../tds-ops/standards/quality.md`): no AI slop, clean code.
 
 ## Topic files
 
