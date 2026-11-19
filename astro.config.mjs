@@ -1,19 +1,19 @@
 import { defineConfig, passthroughImageService } from "astro/config";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
-import { frontendHost } from "@tracht-digital-solutions/tds-frontend-contract/astro";
-import { coreFrontendBase } from "@tracht-digital-solutions/tds-core-frontend/astro";
-import { motionSsrNoExternal, tdsViteBuild } from "@tracht-digital-solutions/tds-shared/astro";
+import { frontendHost } from "@tracht-digital-labs/tds-frontend-contract/astro";
+import { coreFrontendBase } from "@tracht-digital-labs/tds-core-frontend/astro";
+import { motionSsrNoExternal, tdsViteBuild } from "@tracht-digital-labs/tds-shared/astro";
 
 // The customer-portal extension set — customer-facing only. coreFrontendBase injects
 // the shared base routes; frontendHost injects each extension's route + virtuals.
-import supportTickets from "@tracht-digital-solutions/tds-ext-support-tickets";
-import billing from "@tracht-digital-solutions/tds-ext-billing";
-import messages from "@tracht-digital-solutions/tds-ext-messages";
-import projects from "@tracht-digital-solutions/tds-ext-projects";
-import documents from "@tracht-digital-solutions/tds-ext-documents";
-import shop from "@tracht-digital-solutions/tds-ext-shop";
-import referrals from "@tracht-digital-solutions/tds-ext-referrals";
+import supportTickets from "@tracht-digital-labs/tds-ext-support-tickets";
+import billing from "@tracht-digital-labs/tds-ext-billing";
+import messages from "@tracht-digital-labs/tds-ext-messages";
+import projects from "@tracht-digital-labs/tds-ext-projects";
+import documents from "@tracht-digital-labs/tds-ext-documents";
+import shop from "@tracht-digital-labs/tds-ext-shop";
+import referrals from "@tracht-digital-labs/tds-ext-referrals";
 
 const extensions = [supportTickets, billing, messages, projects, documents, shop, referrals];
 
@@ -65,7 +65,7 @@ export default defineConfig({
     // full panel chrome (head/CSS/nav), not as a bare unstyled fragment.
     frontendHost({
       extensions,
-      layout: "@tracht-digital-solutions/tds-core-frontend/src/layouts/Layout.astro",
+      layout: "@tracht-digital-labs/tds-core-frontend/src/layouts/Layout.astro",
     }),
   ],
   trailingSlash: "ignore",
@@ -82,7 +82,7 @@ export default defineConfig({
     build: { ...tdsViteBuild },
     ssr: {
       // Bundle every first-party package INTO dist/server. Without this the
-      // server bundle keeps bare @tracht-digital-solutions/… specifiers and the
+      // server bundle keeps bare @tracht-digital-labs/… specifiers and the
       // host cannot boot at all — it has no GitHub Packages token, and giving
       // it one is exactly what this avoids. pack-release.mjs fails the build if
       // a first-party import survives.
@@ -94,7 +94,7 @@ export default defineConfig({
       // `motion` (via tds-shared's components) is bundled for the same reason:
       // the release tree has no node_modules copy of it, and bundling keeps the
       // server on exactly the copy the browser got. tds-shared owns the list.
-      noExternal: [/^@tracht-digital-solutions\//, "zod", ...motionSsrNoExternal],
+      noExternal: [/^@tracht-digital-labs\//, "zod", ...motionSsrNoExternal],
     },
   },
 });

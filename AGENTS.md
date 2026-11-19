@@ -1,7 +1,7 @@
 # AGENTS.md — tds-customer-frontend
 
 The **customer portal product** (`app.tracht-digital.de`). A standalone Astro app that
-composes the core frontend host (`@tracht-digital-solutions/tds-core-frontend`) with the
+composes the core frontend host (`@tracht-digital-labs/tds-core-frontend`) with the
 customer-facing extension set, at build time, into one server-rendered Node application.
 This repo owns only the composition and the deploy pipeline; the shell, base pages and
 features live in published packages. It partially replaces `tds-customer-legacy-frontend`.
@@ -23,8 +23,8 @@ npm start                       # run release/app.cjs locally
 - The extension set is an **allowlist**: admin-only tooling must never be composed here.
 - Adding an extension is three edits: the import, the `extensions` array and `dependencies`.
 - `FRONTEND_TARGET=customer` stays on both env vars; `frontendHost` keeps its `layout` option.
-- `npm ls @tracht-digital-solutions/tds-shared` must show exactly one version.
-- No page cache, ever. `vite.ssr.noExternal` covers `@tracht-digital-solutions/`.
+- `npm ls @tracht-digital-labs/tds-shared` must show exactly one version.
+- No page cache, ever. `vite.ssr.noExternal` covers `@tracht-digital-labs/`.
 - `public/.htaccess` never gets `Options +FollowSymLinks`; `tsconfig.json` keeps `release/` excluded.
 - Production deploys only via the manual `release.yml` button.
 - Follows the TDS quality standard (`../tds-ops/standards/quality.md`): no AI slop, clean code.

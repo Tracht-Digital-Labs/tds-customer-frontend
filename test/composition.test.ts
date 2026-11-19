@@ -1,16 +1,16 @@
 import { readFileSync } from "node:fs";
-import { BASE_ROUTE_PATTERNS } from "@tracht-digital-solutions/tds-core-frontend/astro";
+import { BASE_ROUTE_PATTERNS } from "@tracht-digital-labs/tds-core-frontend/astro";
 import { describe, expect, it } from "vitest";
-import { composeExtensions } from "@tracht-digital-solutions/tds-frontend-contract";
-import type { ExtensionManifest } from "@tracht-digital-solutions/tds-frontend-contract";
+import { composeExtensions } from "@tracht-digital-labs/tds-frontend-contract";
+import type { ExtensionManifest } from "@tracht-digital-labs/tds-frontend-contract";
 
-import supportTickets from "@tracht-digital-solutions/tds-ext-support-tickets";
-import billing from "@tracht-digital-solutions/tds-ext-billing";
-import messages from "@tracht-digital-solutions/tds-ext-messages";
-import projects from "@tracht-digital-solutions/tds-ext-projects";
-import documents from "@tracht-digital-solutions/tds-ext-documents";
-import shop from "@tracht-digital-solutions/tds-ext-shop";
-import referrals from "@tracht-digital-solutions/tds-ext-referrals";
+import supportTickets from "@tracht-digital-labs/tds-ext-support-tickets";
+import billing from "@tracht-digital-labs/tds-ext-billing";
+import messages from "@tracht-digital-labs/tds-ext-messages";
+import projects from "@tracht-digital-labs/tds-ext-projects";
+import documents from "@tracht-digital-labs/tds-ext-documents";
+import shop from "@tracht-digital-labs/tds-ext-shop";
+import referrals from "@tracht-digital-labs/tds-ext-referrals";
 
 /**
  * This repo has no source of its own — it makes exactly one decision: which
@@ -125,7 +125,7 @@ describe("the extension set composes", () => {
   it("gives every route an entrypoint in its own package", () => {
     for (const route of composeExtensions(EXTENSIONS).routes) {
       expect(route.entrypoint, `route ${route.pattern}`).toMatch(
-        /^@tracht-digital-solutions\/tds-ext-/,
+        /^@tracht-digital-labs\/tds-ext-/,
       );
       expect(route.entrypoint.endsWith(".astro")).toBe(true);
     }
@@ -181,8 +181,8 @@ describe("host wiring", () => {
 
   it("bundles every first-party package into the server bundle", () => {
     // The production host has no GitHub Packages token, so a surviving
-    // @tracht-digital-solutions/… specifier is ERR_MODULE_NOT_FOUND at boot.
-    expect(configCode).toMatch(/noExternal:[\s\S]*?\/\^@tracht-digital-solutions/);
+    // @tracht-digital-labs/… specifier is ERR_MODULE_NOT_FOUND at boot.
+    expect(configCode).toMatch(/noExternal:[\s\S]*?\/\^@tracht-digital-labs/);
     expect(configCode).not.toMatch(/noExternal:\s*true/);
   });
 
@@ -212,7 +212,7 @@ describe("host wiring", () => {
     for (const dep of Object.keys(rel?.runtimeDependencies ?? {})) {
       // Everything first-party is bundled instead; anything listed here is
       // installed on the host from the PUBLIC registry.
-      expect(dep.startsWith("@tracht-digital-solutions/"), dep).toBe(false);
+      expect(dep.startsWith("@tracht-digital-labs/"), dep).toBe(false);
     }
   });
 
@@ -220,7 +220,7 @@ describe("host wiring", () => {
     // From tds-shared rather than a repo-local copy: the script was already
     // byte-identical in three sites, and this repo would have made it five.
     expect(pkg.scripts.postbuild).toMatch(
-      /node node_modules\/@tracht-digital-solutions\/tds-shared\/scripts\/pack-release\.mjs/,
+      /node node_modules\/@tracht-digital-labs\/tds-shared\/scripts\/pack-release\.mjs/,
     );
   });
 
@@ -254,7 +254,7 @@ describe("host wiring", () => {
 
 describe("declared vs. composed extensions", () => {
   const importedSpecifiers = [
-    ...configCode.matchAll(/from "(@tracht-digital-solutions\/tds-ext-[^"]+)"/g),
+    ...configCode.matchAll(/from "(@tracht-digital-labs\/tds-ext-[^"]+)"/g),
   ].map((m) => m[1] as string);
 
   it("imports every extension it composes", () => {
@@ -271,7 +271,7 @@ describe("declared vs. composed extensions", () => {
 
   it("composes every extension it depends on", () => {
     const deps = Object.keys(pkg.dependencies).filter((d) =>
-      d.startsWith("@tracht-digital-solutions/tds-ext-"),
+      d.startsWith("@tracht-digital-labs/tds-ext-"),
     );
     for (const dep of deps) {
       expect(importedSpecifiers, `${dep} is a dependency but never composed`).toContain(dep);
@@ -309,8 +309,8 @@ describe("declared vs. composed extensions", () => {
   });
 
   it("pins the host and the contract", () => {
-    expect(pkg.dependencies["@tracht-digital-solutions/tds-core-frontend"]).toBeDefined();
-    expect(pkg.dependencies["@tracht-digital-solutions/tds-frontend-contract"]).toBeDefined();
+    expect(pkg.dependencies["@tracht-digital-labs/tds-core-frontend"]).toBeDefined();
+    expect(pkg.dependencies["@tracht-digital-labs/tds-frontend-contract"]).toBeDefined();
   });
 });
 

@@ -2,7 +2,7 @@
 
 The **customer portal** product (`app.tracht-digital.de`). A standalone Astro app
 that composes the shared **core frontend host**
-(`@tracht-digital-solutions/tds-core-frontend`) with the **customer-facing
+(`@tracht-digital-labs/tds-core-frontend`) with the **customer-facing
 extension set**. Deployed from this repo's own `dev` / `release` branches.
 
 ## How it works

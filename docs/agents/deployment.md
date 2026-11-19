@@ -7,7 +7,7 @@ The build is `output: "server"` with the Node adapter. Tailwind stays on PostCSS
 
 Invariants, each failing silently without it (the test suite pins them):
 
-- **`vite.ssr.noExternal` covers `@tracht-digital-solutions/`.** The production host has no
+- **`vite.ssr.noExternal` covers `@tracht-digital-labs/`.** The production host has no
   GitHub Packages token, so a first-party specifier left in the server bundle is
   `ERR_MODULE_NOT_FOUND` at boot. `pack-release.mjs`'s `verify()` fails the build on one.
 - **No page cache, ever.** A portal page belongs to one visitor; `tds-shared/cache` refuses a
