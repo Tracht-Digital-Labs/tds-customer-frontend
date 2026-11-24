@@ -31,7 +31,7 @@
     "@tracht-digital-labs/tds-ext-shop": "^0.6.8",
     "@tracht-digital-labs/tds-ext-support-tickets": "^0.7.20",
     "@tracht-digital-labs/tds-frontend-contract": "^1.14.0",
-    "@tracht-digital-labs/tds-shared": "^0.67.1",
+    "@tracht-digital-labs/tds-shared": "^0.68.2",
     "astro": "^7.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
